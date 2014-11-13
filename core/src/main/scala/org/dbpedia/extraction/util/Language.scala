@@ -34,6 +34,7 @@ class Language private(
   val dbpediaDomain: String,
   val dbpediaUri: String,
   val resourceUri: RdfNamespace,
+  val commonsResourceUri: RdfNamespace,
   val propertyUri: RdfNamespace,
   val baseUri: String,
   val apiUri: String
@@ -67,6 +68,7 @@ object Language extends (String => Language)
         code+".dbpedia.org",
         "http://"+code+".dbpedia.org",
         new DBpediaNamespace("http://"+code+".dbpedia.org/resource/"),
+        new DBpediaNamespace("http://commons.dbpedia.org/resource/"),
         new DBpediaNamespace("http://"+code+".dbpedia.org/property/"),
         "http://"+code+".wikipedia.org",
         "http://"+code+".wikipedia.org/w/api.php"
@@ -231,6 +233,7 @@ object Language extends (String => Language)
       "commons.dbpedia.org",
       "http://commons.dbpedia.org",
       new DBpediaNamespace("http://commons.dbpedia.org/resource/"),
+      new DBpediaNamespace("http://commons.dbpedia.org/resource/"),
       new DBpediaNamespace("http://commons.dbpedia.org/property/"),
       "http://commons.wikimedia.org",
       "http://commons.wikimedia.org/w/api.php"
@@ -243,6 +246,7 @@ object Language extends (String => Language)
        // TODO: do DBpedia URIs make sense here? Do we use them at all? Maybe use null instead.
       "wikidata.dbpedia.org",
       "http://wikidata.dbpedia.org",
+      RdfNamespace.WIKIDATA,
       RdfNamespace.WIKIDATA,
       RdfNamespace.WIKIDATA,
       "http://www.wikidata.org",
@@ -260,6 +264,7 @@ object Language extends (String => Language)
       // No DBpedia / RDF namespaces for mappings wiki. 
       "mappings.dbpedia.org",
       "http://mappings.dbpedia.org",
+      RdfNamespace.MAPPINGS,
       RdfNamespace.MAPPINGS,
       RdfNamespace.MAPPINGS,
       "http://mappings.dbpedia.org",
