@@ -60,7 +60,7 @@ class CommonsLinksExtractor (
 
           for(textNode <- propertyNode.children) {
 
-            //Consider only first child of property node.  For example {{Commons|pagename|showname}}, this extracts only pagename
+            //Consider only first child of property node.  For example {{Commons|pagename|showname}}, this extracts only pagename and links to the wikipedia page
             if(propertyNode.key.equals("1")) {
 
               val destination = textNode.toWikiText.replaceAll(" ","_")
