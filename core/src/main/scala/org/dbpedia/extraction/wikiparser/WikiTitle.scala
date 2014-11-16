@@ -50,6 +50,11 @@ class WikiTitle (
     /** resource IRI for this page title */
     val resourceIri = language.resourceUri.append(encodedWithNamespace)
 
+    /** resource IRI for this page title */
+    val commonsResourceIri = language.commonsResourceUri.append(encodedWithNamespace)
+
+
+
     private def withNamespace(encode : Boolean) : String =
     {
       var ns = namespace.name(language)

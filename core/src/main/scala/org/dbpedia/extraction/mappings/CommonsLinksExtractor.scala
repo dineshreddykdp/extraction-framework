@@ -12,7 +12,7 @@ import scala.language.reflectiveCalls
 
 
 /**
- * Linking Wikipedia pages to Wikimedia Commons pages
+ * Extracts commons links from wikipedia pages.
  */
 class CommonsLinksExtractor (
                             context : {
@@ -24,42 +24,51 @@ class CommonsLinksExtractor (
 {
   val wikiPageCommonsLinkProperty = context.ontology.properties("wikiPageCommonsLink")
 
+  private val commonsTemplate = "TemplateNode(title=Commons"
+
+  private val commonsCategoryTemplate = "TemplateNode(title=Commons category"
+
+  private val emptyString = ""
+
+  private val categorySuffix = "Category:"
+
+
   override val datasets = Set(DBpediaDatasets.CommonsLinks)
-
-
 
   override def extract(node : PageNode, subjectUri : String, pageContext : PageContext) : Seq[Quad] =
   {
     if(node.title.namespace != Namespace.Main && !ExtractorUtils.titleContainsCommonsMetadata(node.title))
       return Seq.empty
 
-
     var quads = new ArrayBuffer[Quad]()
 
     for (link <- collectCommonsLinks(node)) {
 
+      if(link.toString.contains(commonsTemplate)) {
 
-      if(link.toString.contains("TemplateNode(title=Commons category;") || link.toString.contains("TemplateNode(title=Commonscat;")
-      || link.toString.contains("TemplateNode(title=Commons cat;") ){
+        var string = emptyString
 
-        println(link)
-        val childNode = link.children
+        //If the template node is commons category add "Category:" to the commonsResourceURI
+        if(link.toString.contains(commonsCategoryTemplate)) {
 
-        if(childNode.size > 0) for(child <- link.children ) {
+          string = categorySuffix
+        }
 
-          val childMap = child
+        val propertyNodeList = link.children
 
-          for(ch <- childMap.children) {
+        if(propertyNodeList.size > 0) for(propertyNode <- propertyNodeList ) {
 
-            //consider only first property node for commons template
-            if(childMap.key.equals("1")) {
+          for(textNode <- propertyNode.children) {
 
-              val commonsresource = ch.toWikiText.replaceAll(" ","_")
+            //Consider only first child of property node.  For example {{Commons|pagename|showname}}, this extracts only pagename
+            if(propertyNode.key.equals("1")) {
 
-              val uri = "http://commons.dbpedia.org/resource/Category:"+commonsresource
-              val links = collectCommonsLinks(node)
+              val destination = textNode.toWikiText.replaceAll(" ","_")
 
-              links.map(link => new Quad(context.language, DBpediaDatasets.CommonsLinks, subjectUri, wikiPageCommonsLinkProperty, uri, link.sourceUri))
+              val destinationUri = context.language.commonsResourceUri.append(string+destination)
+
+
+              quads += new Quad(context.language, DBpediaDatasets.CommonsLinks, subjectUri, wikiPageCommonsLinkProperty, destinationUri, node.sourceUri, null)
             }
           }
         }
@@ -73,7 +82,6 @@ class CommonsLinksExtractor (
 
   private def collectCommonsLinks(node : Node) : List[TemplateNode] =
   {
-
     node match
     {
       case linkNode : TemplateNode => List(linkNode)
@@ -81,11 +89,4 @@ class CommonsLinksExtractor (
     }
   }
 
-  private def getUri(destination : uri) : String =
-  {
-    val fileNamespace = Namespace.Category.name(context.language)
-    context.language.commonsResourceUri.append(fileNamespace)
-
-
-  }
 }

@@ -74,23 +74,18 @@ object DBpediaDatasets
     val DisambiguationLinks  = new Dataset("disambiguations")
     val Homepages = new Dataset("homepages")
     val OutDegree = new Dataset("out_degree")
-<<<<<<< HEAD
+
     val CommonsFiles = new Dataset("commons_filelinks")
     val CommonsLinks = new Dataset("commons_links")
     
-=======
 
->>>>>>> FETCH_HEAD
 
     /**
      * Files
      */
     val FileInformation = new Dataset("file_information")
 
-<<<<<<< HEAD
-    
-=======
->>>>>>> FETCH_HEAD
+
 
     /**
      * Wikidata outputDatasets

@@ -13660,7 +13660,7 @@
 | rdfs:domain = owl:Thing
 | rdfs:range = owl:Thing
 | rdfs:subPropertyOf = foaf:homepage
-}}</text></revision></page><page><title>OntologyProperty:HasGalleryItem</title><ns>202</ns><id>10104</id><revision><id>37584</id><timestamp>2014-08-05T05:08:07Z</timestamp><text>{{ObjectProperty
+}}</text></revision></page><page><title>OntologyProperty:galleryItem</title><ns>202</ns><id>10104</id><revision><id>37584</id><timestamp>2014-08-05T05:08:07Z</timestamp><text>{{ObjectProperty
 | labels=
 {{label|en|A file contained in a [https://en.wikipedia.org/wiki/Help:Gallery_tag gallery]}}
 | rdfs:domain = Document
@@ -23705,6 +23705,22 @@ See also [[OntologyProperty:CurrentlyUsedFor]]</text></revision></page><page><ti
 | comments = 
 {{comment|en|Reserved for DBpedia. {{Reserved for DBpedia}}}}
 }}</text></revision></page><page><title>OntologyProperty:WikiPageExternalLink</title><ns>202</ns><id>2430</id><revision><id>18693</id><timestamp>2012-05-28T19:35:34Z</timestamp><text>'''{{Reserved for DBpedia}}'''
+
+{{ObjectProperty
+| rdfs:label@en = Link to the Wikipage edit URL
+| rdfs:domain = owl:Thing
+| rdfs:range = owl:Thing
+| comments =
+{{comment|en|Reserved for DBpedia. {{Reserved for DBpedia}}}}
+}}</text></revision></page><page><title>OntologyProperty:WikiPageCommonsLink</title><ns>202</ns><id>2430</id><revision><id>18693</id><timestamp>2012-05-28T19:35:34Z</timestamp><text>'''{{Reserved for DBpedia}}'''
+
+{{ObjectProperty
+| rdfs:label@en = Link to the Wikipage edit URL
+| rdfs:domain = owl:Thing
+| rdfs:range = owl:Thing
+| comments =
+{{comment|en|Reserved for DBpedia. {{Reserved for DBpedia}}}}
+}}</text></revision></page><page><title>OntologyProperty:WikiPageCommonsFile</title><ns>202</ns><id>2430</id><revision><id>18693</id><timestamp>2012-05-28T19:35:34Z</timestamp><text>'''{{Reserved for DBpedia}}'''
 
 {{ObjectProperty
 | rdfs:label@en = Link from a Wikipage to an external page

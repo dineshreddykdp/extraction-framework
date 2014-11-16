@@ -10,7 +10,7 @@ import scala.language.reflectiveCalls
 /**
  * Extracts Image files from wikipedia page and links to commons image files.
  */
-class CommonsFileExtractor( context : {
+class CommonsFilesExtractor( context : {
                                       def ontology : Ontology
                                       def language : Language } ) extends PageNodeExtractor
 {
